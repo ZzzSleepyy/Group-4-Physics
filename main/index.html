@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PhysiCards — Developers</title>
+  <style>
+    :root {
+      --primary: #4C85E0;
+      --secondary: #54b7df;
+      --accent: #FF6F61;
+      --background: #FFF7EC;
+      --card-bg: #FFFFFF;
+      --text-dark: #2E3440;
+      --text-light: #5E6470;
+      --shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+      --gradient: linear-gradient(135deg, #4C85E0, #4cb7ff);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--background);
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: flex-start;
+      padding: 1.5rem;
+      color: var(--text-dark);
+      overflow-x: hidden;
+      gap: 2rem;
+    }
+
+    /* --- SIDEBAR --- */
+    .sidebar {
+      width: 260px;
+      height: calc(100vh - 3rem);
+      background: var(--card-bg);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      padding: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: sticky;
+      top: 1.5rem;
+    }
+
+    .sidebar-header {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .sidebar-logo {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      background: var(--primary);
+      color: white;
+      font-weight: 700;
+      font-size: 1.15rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(76, 133, 224, 0.3);
+    }
+
+    .sidebar-title h3 {
+      font-size: 1.05rem;
+      color: var(--text-dark);
+      font-weight: 700;
+    }
+
+    .sidebar-title p {
+      font-size: 0.8rem;
+      color: var(--text-light);
+    }
+
+    .sidebar-nav {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .sidebar-nav a {
+      text-decoration: none;
+      color: var(--text-dark);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 0.6rem 0.9rem;
+      border-radius: 12px;
+      transition: 0.25s ease;
+    }
+
+    .sidebar-nav a:hover {
+      background: rgba(76, 133, 224, 0.08);
+      color: var(--primary);
+      transform: translateX(5px);
+    }
+
+    .sidebar-nav a.active {
+      background: var(--primary);
+      color: white;
+    }
+
+    .sidebar-footer {
+      font-size: 0.82rem;
+      color: var(--text-light);
+      text-align: center;
+      opacity: 0.9;
+    }
+
+    /* --- MAIN CONTENT --- */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 1.5rem;
+      min-height: 100vh;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    #search {
+      padding: 0.8rem 1rem;
+      border-radius: 999px;
+      border: 1px solid #ddd;
+      margin-bottom: 2rem;
+      width: 100%;
+      max-width: 400px;
+      font-size: 1rem;
+      outline: none;
+      transition: all 0.3s;
+    }
+
+    #search:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(76, 133, 224, 0.2);
+    }
+
+    /* --- CARDS --- */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.8rem;
+      width: 100%;
+      max-width: 1100px;
+      justify-items: center;
+    }
+
+    .card {
+      width: 100%;
+      height: 340px;
+      perspective: 1200px;
+      cursor: pointer;
+      animation: fadeInUp 0.6s ease both;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.9s cubic-bezier(0.23, 1, 0.32, 1);
+      transform-style: preserve-3d;
+    }
+
+    .card.flipped .card-inner {
+      transform: rotateY(180deg) scale(1.02);
+    }
+
+    .card-front,
+    .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      backface-visibility: hidden;
+      padding: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .card-front {
+      background: var(--card-bg);
+      border: 1px solid #f2f2f2;
+    }
+
+    .card-front:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 25px rgba(76, 133, 224, 0.15);
+      background: linear-gradient(white, white) padding-box,
+                  linear-gradient(135deg, #4C85E0, #d6cfc4) border-box;
+      border: 2px solid transparent;
+    }
+
+    .card-back {
+      background: var(--gradient);
+      color: #fff;
+      transform: rotateY(180deg);
+      justify-content: center;
+      text-align: left;
+    }
+
+    .avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 1rem;
+      border: 3px solid var(--primary);
+    }
+
+    .card h2 {
+      color: var(--primary);
+      font-size: 1.25rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .card p {
+      color: var(--text-light);
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    .tag-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .tag {
+      background: #E9F0FF;
+      color: #3366CC;
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: background 0.3s;
+    }
+
+    .tag:hover {
+      background: var(--secondary);
+      color: white;
+    }
+
+    @media (max-width: 900px) {
+      body { flex-direction: column; padding: 1rem; }
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        margin-bottom: 1rem;
+      }
+      main { padding: 1rem 0; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div>
+      <div class="sidebar-header">
+        <div class="sidebar-logo">PF</div>
+        <div class="sidebar-title">
+          <h3>Physics!</h3>
+          <p>Physics made playful!</p>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="#" >🏠 Home</a>
+        <a href="#">📚 Topics</a>
+        <a href="#">⚙️ Settings</a>
+        <a href="#" class="active">🛠️ Developers</a>
+      </nav>
+    </div>
+
+    <div class="sidebar-footer">
+      Made with <span>🧠</span> for curious minds and children
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main>
+    <h1>Developers</h1>
+    <input type="text" id="search" placeholder="Search developer..." aria-label="Search developers" />
+
+    <div class="card-grid">
+      <!-- 🧍 Card 1 -->
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-front">
+            <img src="https://ui-avatars.com/api/?name=Allana+Mendoza&background=E9F0FF&color=4C85E0" class="avatar" alt="Mendoza avatar" />
+            <h2>Mendoza, Allana Maryse R.</h2>
+            <p>Creative thinker focused on clean design and user experience.</p>
+            <div class="tag-container">
+              <span class="tag">Data Handler</span>
+              <span class="tag">Coordinator</span>
+              <span class="tag">UI Designer</span>
+            </div>
+          </div>
+          <div class="card-back">
+            <h3>Inside Info</h3>
+            <p>Expert in data integration and UX design, bridging technical and aesthetic balance in every project.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 🧍 Card 2 -->
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-front">
+            <img src="https://ui-avatars.com/api/?name=Nicko+Trivino&background=E9F0FF&color=4C85E0" class="avatar" alt="Trivino avatar" />
+            <h2>Trivino, Nicko A.</h2>
+            <p>Full-stack developer passionate about responsive web systems.</p>
+            <div class="tag-container">
+              <span class="tag">Front-End</span>
+              <span class="tag">Back-End</span>
+            </div>
+          </div>
+          <div class="card-back">
+            <h3>Inside Info</h3>
+            <p>Specializes in maintaining seamless server-client communication for scalable web applications.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 🧍 Card 3 -->
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-front">
+            <img src="https://ui-avatars.com/api/?name=Emanuel+Morales&background=E9F0FF&color=4C85E0" class="avatar" alt="Morales avatar" />
+            <h2>Morales, Emanuel Jacob C.</h2>
+            <p>Focuses on smart sensor systems and data analytics solutions.</p>
+            <div class="tag-container">
+              <span class="tag">Analytics</span>
+              <span class="tag">Sensors</span>
+            </div>
+          </div>
+          <div class="card-back">
+            <h3>Inside Info</h3>
+            <p>Brings analytical insights to physical interfaces, ensuring accuracy and performance in every reading.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 🧍 Card 4 -->
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-front">
+            <img src="https://ui-avatars.com/api/?name=John+Pontigon&background=E9F0FF&color=4C85E0" class="avatar" alt="Pontigon avatar" />
+            <h2>Pontigon, John Russell C.</h2>
+            <p>AI-driven developer enhancing model accuracy and automation.</p>
+            <div class="tag-container">
+              <span class="tag">AI</span>
+              <span class="tag">Trainer</span>
+            </div>
+          </div>
+          <div class="card-back">
+            <h3>Inside Info</h3>
+            <p>Designs efficient training loops and adaptive neural pathways to optimize project learning outcomes.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 🧍 Card 5 -->
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-front">
+            <img src="https://ui-avatars.com/api/?name=Althea+Macatangay&background=E9F0FF&color=4C85E0" class="avatar" alt="Macatangay avatar" />
+            <h2>Macatangay, Althea Rhien N.</h2>
+            <p>AI enthusiast focused on human-computer collaboration.</p>
+            <div class="tag-container">
+              <span class="tag">AI</span>
+              <span class="tag">Trainer</span>
+            </div>
+          </div>
+          <div class="card-back">
+            <h3>Inside Info</h3>
+            <p>Specializes in training models for emotion detection and adaptive feedback loops.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 🧍 Card 6 -->
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-front">
+            <img src="https://ui-avatars.com/api/?name=Francis+Panganiban&background=E9F0FF&color=4C85E0" class="avatar" alt="Panganiban avatar" />
+            <h2>Panganiban, Francis Rafael T.</h2>
+            <p>Trainer and machine learning engineer with a creative edge.</p>
+            <div class="tag-container">
+              <span class="tag">AI</span>
+              <span class="tag">Trainer</span>
+            </div>
+          </div>
+          <div class="card-back">
+            <h3>Inside Info</h3>
+            <p>Explores adaptive intelligence systems and human-centered AI design methodologies.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 🧍 Card 7 -->
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-front">
+            <img src="https://ui-avatars.com/api/?name=Maricris+Martinez&background=E9F0FF&color=4C85E0" class="avatar" alt="Martinez avatar" />
+            <h2>Martinez, Maricris M.</h2>
+            <p>AI trainer focused on making data modeling accessible for everyone.</p>
+            <div class="tag-container">
+              <span class="tag">AI</span>
+              <span class="tag">Trainer</span>
+            </div>
+          </div>
+          <div class="card-back">
+            <h3>Inside Info</h3>
+            <p>Blends algorithmic teaching with empathy to simplify technical learning curves for teams.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.querySelectorAll('.card').forEach((card, i) => {
+      card.style.animationDelay = `${i * 0.1}s`;
+      card.addEventListener('click', e => {
+        if (!e.target.classList.contains('tag')) {
+          card.classList.toggle('flipped');
+        }
+      });
+    });
+
+    const search = document.getElementById('search');
+    search.addEventListener('input', e => {
+      const term = e.target.value.toLowerCase();
+      document.querySelectorAll('.card').forEach(card => {
+        card.style.display = card.textContent.toLowerCase().includes(term) ? '' : 'none';
+      });
+    });
+  </script>
+</body>
+</html>
