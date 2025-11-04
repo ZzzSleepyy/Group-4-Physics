@@ -13,6 +13,10 @@
 
 ###
 
-<p align="left">Collaborators:<br>- Trivino, Nicko A.<br>- Morales, Emanuel Jacob C.<br>- Macatangay, Althea Rhien N.<br>- Pontigon, John Russell C.</p>
+# Collaborators:
+- Trivino, Nicko A.
+- Morales, Emanuel Jacob C.
+- Macatangay, Althea Rhien N.
+- Pontigon, John Russell C.
 
 ###
