@@ -15,6 +15,7 @@ A brief description of what this project does and who it's for
 ###
 
 # Collaborators:
+- Mendoza, Allana Maryse R.
 - Trivino, Nicko A.
 - Morales, Emanuel Jacob C.
 - Macatangay, Althea Rhien N.
