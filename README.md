@@ -12,8 +12,6 @@
 
 A brief description of what this project does and who it's for
 
-
-
 ###
 
 # Collaborators:
@@ -21,5 +19,7 @@ A brief description of what this project does and who it's for
 - Morales, Emanuel Jacob C.
 - Macatangay, Althea Rhien N.
 - Pontigon, John Russell C.
-
+- Macatangay, Althea Rhien N.
+- Panganiban, Francis Rafael T.
+- Martinez, Maricris M.
 ###
