@@ -23,3 +23,9 @@ A brief description of what this project does and who it's for
 - Panganiban, Francis Rafael T.
 - Martinez, Maricris M.
 ###
+
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
+
