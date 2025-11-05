@@ -157,16 +157,16 @@
     }
 
     /* --- CARDS --- */
- .card-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* exactly 3 columns */
-    gap: 2rem; /* space between cards */
-    width: 100%;
-    max-width: 1300px; /* optional: controls total grid width */
-    justify-content: center; /* centers grid content */
-    justify-items: center; /* centers each card inside its cell */
-    margin: 0 auto; /* centers the grid itself */
-  }
+  .card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* exactly 3 columns */
+      gap: 2rem; /* space between cards */
+      width: 100%;
+      max-width: 1300px; /* optional: controls total grid width */
+      justify-content: center; /* centers grid content */
+      justify-items: center; /* centers each card inside its cell */
+      margin: 0 auto; /* centers the grid itself */
+    }
 
   .card {
     width: 400px;

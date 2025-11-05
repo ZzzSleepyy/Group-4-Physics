@@ -8,6 +8,7 @@
         }
       });
     });
+    
     // Search filter
     const search = document.getElementById('search');
     if (search) {
@@ -18,6 +19,7 @@
         });
       });
     }
+
     // Section switching
     const links = document.querySelectorAll('.sidebar-nav a');
     const sections = document.querySelectorAll('.section');
