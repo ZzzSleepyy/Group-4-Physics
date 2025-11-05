@@ -8,13 +8,13 @@
 
 ###
 
-# Project title: Wala pa
+## Project title: Wala pa
 
 A brief description of what this project does and who it's for
 
 ###
 
-# Collaborators:
+##  Collaborators:
 - Mendoza, Allana Maryse R.
 - Trivino, Nicko A.
 - Morales, Emanuel Jacob C.
