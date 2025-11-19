@@ -159,14 +159,23 @@
     /* --- CARDS --- */
   .card-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr); /* exactly 3 columns */
-      gap: 2rem; /* space between cards */
-      width: 100%;
-      max-width: 1300px; /* optional: controls total grid width */
-      justify-content: center; /* centers grid content */
-      justify-items: center; /* centers each card inside its cell */
-      margin: 0 auto; /* centers the grid itself */
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
     }
+
+
+  @media (max-width: 992px) {
+    .card-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* Phone (1 card per row) */
+  @media (max-width: 600px) {
+    .card-grid {
+      grid-template-columns: 1fr;
+    }
+  }
 
   .card {
     width: 400px;
@@ -188,6 +197,7 @@
       transition: transform 0.9s cubic-bezier(0.23, 1, 0.32, 1);
       transform-style: preserve-3d;
     }
+    
 
     .card.flipped .card-inner {
       transform: rotateY(180deg) scale(1.02);
